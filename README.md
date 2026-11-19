@@ -114,15 +114,15 @@ put your handwritten VLSM calculation photo / screenshot here
 
 | Segmen | Blok VLSM (/xx) | Alamat IP yang Digunakan |
 | --- | --- | --- |
-| IF-106 | | R3 (ether1): [...] <br> netics-pc-3 (eth0): [...] |
-| IF-105 | | R2 (ether1): [...] <br> netics-pc-2 (eth0): [...] |
-| Ruang Dosen | | R1 (ether1): [...] <br> netics-pc-1 (eth0): [...] <br> netics-pc-desktop-1 (eth0): [...] |
+| IF-106 | | R3 (ether1): [...] <br> Kazdel (eth0): [...] |
+| IF-105 | | R2 (ether1): [...] <br> Yan (eth0): [...] |
+| Ruang Dosen | | R1 (ether1): [...] <br> Lungmen (eth0): [...] <br> Laterano (eth0): [...] |
 | Backbone A | | R1: [...] / R2: [...] / R3: [...] / R4: [...] (all ether4) |
 | Backbone B | | R1: [...] / R2: [...] / R3: [...] / R4: [...] (all ether5) |
 | Link R1–R2 | | R1 (ether2): [...] <br> R2 (ether2): [...] |
 | Link R2–R3 | | R2 (ether3): [...] <br> R3 (ether2): [...] |
 | Link R3–R1 | | R1 (ether3): [...] <br> R3 (ether3): [...] |
-| Ruang Baca | | R4 (ether1): [...] <br> netics-pc-4 (eth0): [...] |
+| Ruang Baca | | R4 (ether1): [...] <br> Higashi (eth0): [...] |
 
 
 ### Problem B.1 - Membangun Chain Topology dan Mengamati Connected Route
@@ -217,8 +217,8 @@ put your answer here (and screenshot) for:
  
 ```
 put your answer here (and screenshot) for:
-- mtr from netics-pc-desktop-1 to netics-pc-3 (route disabled on R3)
-- mtr from netics-pc-3 to netics-pc-desktop-1 (reverse direction)
+- mtr from Laterano to Kazdel (route disabled on R3)
+- mtr from Kazdel to Laterano (reverse direction)
 ```
  
 #### Langkah Kerja - (d)
@@ -386,10 +386,10 @@ put your calculation here: number of additional static routes needed and on whic
  
 ```
 put your answer here (and screenshot) for:
-- topology after adding R4, switch, and netics-pc-4
+- topology after adding R4, switch, and Higashi
 - R4 IP address configuration (ether1, ether4, ether5)
 - R4 OSPF instance/area/interface-template configuration
-- netics-pc-4 address and default gateway configuration
+- Higashi address and default gateway configuration
 ```
  
 #### Langkah Kerja - (c)
@@ -399,7 +399,7 @@ put your answer here (and screenshot) for:
 ```
 put your answer here (and screenshot) for:
 - /ip route print where dst-address=[IP Prefix].192/26 (on R1, without touching R1 config)
-- mtr from Ruang Dosen (netics-pc-desktop-1) to netics-pc-4
+- mtr from Ruang Dosen (Laterano) to Higashi
 ```
  
 #### Langkah Kerja - (d)
