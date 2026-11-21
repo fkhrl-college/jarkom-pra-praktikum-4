@@ -49,8 +49,8 @@
 | 9   | Ruang Baca (cadangan) | ±35             | /26          | 10.127.20.192   | 10.127.20.255     |
 
 <div align="center">
-    <img src="./docs/A/1.2.jpeg" width="500px">
-    <img src="./docs/A/1.1.jpeg" width="500px">
+    <img src="./docs/A/1/ip-map-1.jpg.jpeg" width="500px">
+    <img src="./docs/A/1/ip-map-2.jpg.jpeg" width="500px">
 </div>
 
 ### Problem A.2 - Rencana Interface dan Routing Table: Chain Topology
@@ -67,25 +67,30 @@
 
 **Answer - Tabel Alokasi Interface (rencana):**
 
-| Router | ether1 (LAN)  | ether2    | ether3           |
-| ------ | ------------- | --------- | ---------------- |
-| R1     | 10.127.20.1   | 10.127.17 | - (not used yet) |
-| R2     | 10.127.20.65  | 10.127.18 | 10.127.21        |
-| R3     | 10.127.20.129 | 10.127.22 | - (not used yet) |
+| Router | ether1 (LAN)  | ether2        | ether3           |
+| ------ | ------------- | ------------- | ---------------- |
+| R1     | 10.127.20.129 | 10.127.20.161 | - (not used yet) |
+| R2     | 10.127.20.65  | 10.127.20.162 | 10.127.20.165    |
+| R3     | 10.127.20.1   | 10.127.166    | - (not used yet) |
+
+> [!NOTE]
+> Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
 
 **Answer - Routing Table (rencana):**
+| Router | Destination Network | Next Hop | Outgoing Interface | Metode |
+| ------ | ------------------- | -------- | ------------------ | ------ |
+| R1 | IF-106 10.127.20.128/26 | - | ether1 (10.127.20.129) | Terhubung Langsung |
+| R1 | IF-105 10.127.20.64/26 | 10.127.20.162 (R2 ether2) | ether2 (10.127.20.161) | Static |
+| R1 | Ruang Dosen 10.127.20.0/28 | 10.127.20.162 (R2 ether2) | ether2 (10.127.20.161) | Static |
+| R2 | IF-105 10.127.20.64/26 | - | ether1 (10.127.20.65) | Terhubung Langsung |
+| R2 | Ruang Dosen 10.127.20.0/28 | 10.127.20.166 (R3 ether2) | ether3 (10.127.20.165) | Static |
+| R2 | IF-106 10.127.20.128/26 | 10.127.20.166 (R3 ether2) | ether3 (10.127.20.165) | Static |
+| R3 | Ruang Dosen 10.127.20.0/28 | - | ether1 (10.127.20.1) | Terhubung Langsung |
+| R3 | IF-105 10.127.20.64/26 | 10.127.20.165 (R2 ether3) | ether2 (10.127.20.166) | Static |
+| R3 | IF-106 10.127.20.128/26 | 10.127.20.165 (R2 ether3) | ether2 (10.127.20.166) | Static |
 
-| Router | Destination Network | Next Hop                  | Outgoing Interface        | Metode   |
-| ------ | ------------------- | ------------------------- | ------------------------- | -------- |
-| R1     | Ruang Dosen         | -                         | 10.127.20.1 <br> (R1 e1)  | Langsung |
-| R1     | IF-105              | 10.127.20.18 <br> (R2 e2) | 10.127.20.17 <br> (R1 e2) | Statis   |
-| R1     | IF-106              | 10.127.20.18 <br> (R2 e2) | 10.127.20.17 <br> (R1 e2) | Statis   |
-| R2     | IF-105              | -                         | 10.127.20.65              | Langsung |
-| R2     | Ruang Dosen         | 10.127.17 <br> (R1 e2)    | 10.127.18 <br> (R2 e2)    | Statis   |
-| R2     | IF-106              | 10.127.20.22 <br> (R3 e2) | 10.127.20.21 <br> (R2 e2) | Statis   |
-| R3     | IF-106              | -                         | 10.127.20.129             | Langsung |
-| R3     | Ruang Dosen         | 10.127.20.21 <br> (R2 e2) | 10.127.20.22 (R3 e2)      | Statis   |
-| R3     | IF-105              | 10.127.20.21 <br> (R2 e2) | 10.127.20.22 (R3 e2)      | Statis   |
+> [!NOTE]
+> Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
 
 ### Problem A.3 - Beban Konfigurasi Static Routing
 
@@ -116,17 +121,17 @@
 >
 > _The following table serves as a reference for the allocations to be used throughout the work steps in Sections B, C, and D. Please fill it in based on the calculation results from problems A.1 and A.2; the address columns may be adjusted according to the respective IP prefixes._
 
-| Segmen      | Blok VLSM (/xx)     | Alamat IP yang Digunakan                                                                    |
-| ----------- | ------------------- | ------------------------------------------------------------------------------------------- |
-| IF-106      | /26 [10.127.20.128] | R3 (ether1): 10.127.20.129 <br> Kazdel (eth0): 10.127.20.130                                |
-| IF-105      | /26 [10.127.20.64]  | R2 (ether1): 10.127.20.65 <br> Yan (eth0): 10.127.20.66                                     |
-| Ruang Dosen | /28 [10.127.20.0]   | R1 (ether1): 10.127.20.1 <br> Laterano (eth0): 10.127.20.2 <br> Lungmen (eth0): 10.127.20.3 |
-| Backbone A  | /29 [10.127.20.32]  | R1: 10.127.20.33 / R2: 10.127.20.34 / R3: 10.127.20.35 / R4: 10.127.20.36 (all ether4)      |
-| Backbone B  | /29 [10.127.20.40]  | R1: 10.127.20.41 / R2: 10.127.20.42 / R3: 10.127.20.43 / R4: 10.127.20.44 (all ether5)      |
-| Link R1–R2  | /30 [10.127.20.16]  | R1 (ether2): 10.127.20.17 <br> R2 (ether2): 10.127.20.18                                    |
-| Link R2–R3  | /30 [10.127.20.20]  | R2 (ether3): 10.127.20.21 <br> R3 (ether2): 10.127.20.22                                    |
-| Link R3–R1  | /30 [10.127.20.24]  | R1 (ether3): 10.127.20.25 <br> R3 (ether3): 10.127.20.26                                    |
-| Ruang Baca  | /26 [10.127.20.192] | R4 (ether1): 10.127.20.193 <br> Higashi (eth0): 10.127.20.194                               |
+| Segmen      | Blok VLSM (/xx)     | Alamat IP yang Digunakan                                                                                 |
+| ----------- | ------------------- | -------------------------------------------------------------------------------------------------------- |
+| IF-106      | /26 [10.127.20.0]   | R3 (ether1): 10.127.20.1 <br> Kazdel (eth0): 10.127.20.10                                                |
+| IF-105      | /26 [10.127.20.64]  | R2 (ether1): 10.127.20.65 <br> Yan (eth0): 10.127.20.70                                                  |
+| Ruang Dosen | /28 [10.127.20.128] | R1 (ether1): 10.127.20.129 <br> Lungmen (eth0): 10.127.20.130 <br> Laterano (eth0): 10.127.20.131        |
+| Backbone A  | /29 [10.127.20.144] | R1: 10.127.20.145 <br> R2: 10.127.20.146 <br> R3: 10.127.20.147 <br> R4: 10.127.20.148 <br> (all ether4) |
+| Backbone B  | /29 [10.127.20.152] | R1: 10.127.20.153 <br> R2: 10.127.20.154 <br> R3: 10.127.20.155 <br> R4: 10.127.20.156 <br> (all ether5) |
+| Link R1–R2  | /30 [10.127.20.160] | R1 (ether2): 10.127.20.161 <br> R2 (ether2): 10.127.20.162                                               |
+| Link R2–R3  | /30 [10.127.20.164] | R2 (ether3): 10.127.20.165 <br> R3 (ether2): 10.127.20.166                                               |
+| Link R3–R1  | /30 [10.127.20.168] | R1 (ether3): 10.127.20.169 <br> R3 (ether3): 10.127.20.170                                               |
+| Ruang Baca  | /26 [10.127.20.192] | R4 (ether1): 10.127.20.193 <br> Higashi (eth0): 10.127.20.200                                            |
 
 ### Problem B.1 - Membangun Chain Topology dan Mengamati Connected Route
 
@@ -136,11 +141,11 @@
 
 **Answer:**
 
-| No  | Parameter/Aspek             | Field/Perintah      | Hasil Observasi (screenshot)                                                                    |
-| --- | --------------------------- | ------------------- | ----------------------------------------------------------------------------------------------- |
-| 1   | Alamat interface R1, R2, R3 | `/ip address print` | ![r1](./docs/B/1/1.r1.png) <br> ![r2](./docs/B/1/1.r2.png) <br> ![r3](./docs/B/1/1.r3.png) <br> |
-| 2   | Routing table awal          | `/ip route print`   | ![r1](./docs/B/1/2.r1.png) <br> ![r2](./docs/B/1/2.r2.png) <br> ![r3](./docs/B/1/2.r3.png) <br> |
-| 3   | Hasil ping ke R2 (.162)     | `ping`              | Prediksi: Gagal, karena routing table pada router belum ada <br> ![3](./docs/B/1/3.png)         |
+| No  | Parameter/Aspek             | Field/Perintah      | Hasil Observasi (screenshot)                                                               |
+| --- | --------------------------- | ------------------- | ------------------------------------------------------------------------------------------ |
+| 1   | Alamat interface R1, R2, R3 | `/ip address print` | ![ip](./docs/B/1/ip.png)                                                                   |
+| 2   | Routing table awal          | `/ip route print`   | ![route](./docs/B/1/route.png)                                                             |
+| 3   | Hasil ping ke R2 (.162)     | `ping`              | Prediksi: Gagal, karena routing table pada router belum ada <br> ![3](./docs/B/1/ping.png) |
 
 ### Problem B.2 - Static Route Multi-Hop, Forward dan Return Path, dan Anatomi Datagram
 
@@ -150,15 +155,15 @@
 
 **Answer:**
 
-| No  | Parameter/Aspek                                  | Field/Perintah             | Hasil Observasi (screenshot)                                                                                                                                                                                                                                                        |
-| --- | ------------------------------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Hasil ping dan traceroute dari R3                | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/1.ping-1.png) <br> Ping pertama gagal <br> ![1.ping-2](./docs/B/2/1.ping-2.png) <br> Ping sudah berhasil setelah ditambah routing table pada R3 |
-| 2   | Routing table R1, R2, R3 lengkap                 | `/ip route print`          |                                                                                                                                                                                                                                                                                     |
-| 3   | Path Ruang Dosen → IF-105                        | `mtr`                      |                                                                                                                                                                                                                                                                                     |
-| 4   | Path Ruang Dosen → IF-106                        | `mtr`                      |                                                                                                                                                                                                                                                                                     |
-| 5   | Path IF-106 → Ruang Dosen                        | `mtr`                      |                                                                                                                                                                                                                                                                                     |
-| 6   | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl`                   |                                                                                                                                                                                                                                                                                     |
-| 7   | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum`  |                                                                                                                                                                                                                                                                                     |
+| No  | Parameter/Aspek                                  | Field/Perintah             | Hasil Observasi (screenshot)                                                                                                                                                              |
+| --- | ------------------------------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Hasil ping dan traceroute dari R3                | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/belum.png) Sesudah: ![1.ping-1](./docs/B/2/sudah.png) |
+| 2   | Routing table R1, R2, R3 lengkap                 | `/ip route print`          | ![](./docs/B/2/route.png)                                                                                                                                                                 |
+| 3   | Path Ruang Dosen → IF-105                        | `mtr`                      | ![](./docs/B/2/dos-if-105.png)                                                                                                                                                            |
+| 4   | Path Ruang Dosen → IF-106                        | `mtr`                      | ![](./docs/B/2/dos-if-106.png)                                                                                                                                                            |
+| 5   | Path IF-106 → Ruang Dosen                        | `mtr`                      | ![](./docs/B/2/if-106-to-dos.png)                                                                                                                                                         |
+| 6   | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl`                   | ![](./docs/B/2/ttl.png)                                                                                                                                                                   |
+| 7   | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum`  | Protocol: ![](./docs/B/2/proto.png) Checksum: ![](./docs/B/2/checksum.png)                                                                                                                |
 
 ### Problem B.3 - Manipulasi Route: Summarization, Longest Prefix Match, dan Routing Loop
 
