@@ -188,6 +188,8 @@
 put your GNS3 topology screenshot for Part C here (Figure C.1)
 ```
 
+![](./docs/topo-half.png)
+
 **Langkah Kerja:**
 
 > Silahkan mengikuti langkah kerja yang diberikan dalam soal pra-praktikum modul 4 di bagian Problem C.1 dam C.2
@@ -392,6 +394,8 @@ put your answer here (and screenshot) for:
 - topology after adding Backbone A and Backbone B switches and connections
 ```
 
+![](./docs/topo-half.png)
+
 #### Langkah Kerja - (b)
 
 **Answer:**
@@ -403,6 +407,8 @@ put your answer here (and screenshot) for:
 - /routing ospf interface-template addition for ether4,ether5
 ```
 
+![](./docs/D/1/b1.png)
+
 #### Langkah Kerja - (c)
 
 **Answer:**
@@ -413,6 +419,8 @@ put your answer here (and screenshot) for:
 - /routing ospf interface print (DR/BDR roles on Backbone A and Backbone B)
 ```
 
+![](./docs/D/1/c.png)
+
 #### Langkah Kerja - (d)
 
 **Answer:**
@@ -421,6 +429,9 @@ put your answer here (and screenshot) for:
 put your answer here (and screenshot) for:
 - /ip route print detail where dst-address=[...].0/26 (on R1)
 ```
+
+Prediksi: Kemungkinan besar 1 karena kita hanya membuat 1 instance ospf, namun bisa saja 2 jika kedua path memiliki cost sama, tetapi asumsi belum ditemukan kesamaan cost jadi hanya 1.
+![](./docs/D/1/d.png)
 
 #### Langkah Kerja - (e)
 
@@ -432,6 +443,11 @@ put your answer here (and screenshot) for:
 - gateway change on R1 and downtime duration
 ```
 
+![](./docs/D/1/e1.png)
+Perubahan pada ip gateway dari 147 ke 146
+![](./docs/D/1/e2.png)
+Downtime 1.5ms
+
 #### Langkah Kerja - (f)
 
 **Answer:**
@@ -442,6 +458,9 @@ put your answer here (and screenshot) for:
 - /interface disable/enable ether4,ether5
 - /routing ospf interface print (R1 role before and after re-election)
 ```
+
+![](./docs/D/1/f1.png)
+Terjadi perubahan dari dr dan bdr menjadi dr-other keduanya
 
 ### Problem D.2 - Penambahan Ruang Baca melalui R4
 
@@ -469,6 +488,15 @@ put your answer here (and screenshot) for:
 - netics-pc-4 address and default gateway configuration
 ```
 
+![](./docs/topo.png)
+Full topo
+![](./docs/D/2/a1.png)
+Ip address
+![](./docs/D/2/a2.png)
+OSPF Instance
+![](./docs/D/2/a3.png)
+Default gateway adalah multi router, karena distance sama, keduanya digunakan.
+
 #### Langkah Kerja - (c)
 
 **Answer:**
@@ -479,6 +507,11 @@ put your answer here (and screenshot) for:
 - mtr from Ruang Dosen (netics-pc-desktop-1) to netics-pc-4
 ```
 
+![](./docs/D/2/c.png)
+R1 detect .192/26
+![](./docs/D/2/c-2.png)
+Traceroute berjalan baik
+
 #### Langkah Kerja - (d)
 
 **Answer:**
@@ -487,6 +520,9 @@ put your answer here (and screenshot) for:
 put your answer here (and attach files) for:
 - /export file=case4-R1 (R2, R3, R4 menyesuaikan)
 ```
+
+![](./docs/D/2/d.png)
+Sudah tersimpan, bisa dicek untuk R2, R3, dan R4 juga
 
 ## Tugas Mandiri
 
