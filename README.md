@@ -12,6 +12,7 @@
 #### Put your GNS3 Project files here (gdrive or github upload)!
 
 `Put file URL here`
+![](./topo.gns3project)
 
 ---
 
@@ -540,19 +541,23 @@ Sudah tersimpan, bisa dicek untuk R2, R3, dan R4 juga
 put image here
 ```
 
+![](./docs/mad/mandiri-1.jpeg)
+
 **Answer - Tabel Perhitungan VLSM:**
 
-| No  | Parameter          | Lab Jaringan (±60) | Lab Sistem Cerdas (±25) | Ruang Server (±6) | Link RA–RB | Link RB–RC |
-| --- | ------------------ | ------------------ | ----------------------- | ----------------- | ---------- | ---------- |
-| 1   | Prefix             |                    |                         |                   |            |            |
-| 2   | Network Address    |                    |                         |                   |            |            |
-| 3   | Broadcast Address  |                    |                         |                   |            |            |
-| 4   | Rentang Host Valid |                    |                         |                   |            |            |
+| No  | Parameter          | Lab Jaringan (±60)              | Lab Sistem Cerdas (±25)        | Ruang Server (±6)             | Link RA–RB                   | Link RB–RC                   |
+| --- | ------------------ | ------------------------------- | ------------------------------ | ----------------------------- | ---------------------------- | ---------------------------- |
+| 1   | Prefix             | /26                             | /27                            | /29                           | /30                          | /30                          |
+| 2   | Network Address    | 10.127.50.64                    | 10.127.50.32                   | 10.127.50.8                   | 10.127.50.0                  | 10.127.50.4                  |
+| 3   | Broadcast Address  | 10.127.50.127                   | 10.127.50.63                   | 10.127.50.15                  | 10.127.50.3                  | 10.127.50.7                  |
+| 4   | Rentang Host Valid | 10.127.50.65 s.d. 10.127.50.126 | 10.127.50.33 s.d. 10.127.50.62 | 10.127.50.9 s.d. 10.127.50.14 | 10.127.50.1 s.d. 10.127.50.2 | 10.127.50.5 s.d. 10.127.50.6 |
 
 **Answer - Soal 4 (backup route via RC–RA):**
 
 ```
 put your calculation and explanation here
 ```
+
+![](./docs/mad/mandiri-2.jpeg)
 
 AJK
