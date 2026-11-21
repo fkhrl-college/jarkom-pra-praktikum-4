@@ -173,14 +173,14 @@
 
 **Answer:**
 
-| No  | Parameter/Aspek                                         | Field/Perintah    | Hasil Observasi (screenshot) |
-| --- | ------------------------------------------------------- | ----------------- | ---------------------------- |
-| 1   | Routing table R1 setelah summarization                  | `/ip route print` |                              |
-| 2   | Konektivitas ke IF-105 dan IF-106 setelah summarization | `ping`            |                              |
-| 3   | Prediksi dan hasil uji LPM (.10, .1, .70)               | `ping`            |                              |
-| 4   | Message yang diterima pengirim saat loop                | `ping`            |                              |
-| 5   | Nilai TTL Echo Request yang sama pada capture R1–R2     | `ip.ttl`          |                              |
-| 6   | Konektivitas setelah konfigurasi dikembalikan           | `ping`            |                              |
+| No  | Parameter/Aspek                                         | Field/Perintah    | Hasil Observasi (screenshot)                                                                                                                                   |
+| --- | ------------------------------------------------------- | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 1   | Routing table R1 setelah summarization                  | `/ip route print` | ![](./docs/B/3/route.r1.png)                                                                                                                                   |
+| 2   | Konektivitas ke IF-105 dan IF-106 setelah summarization | `ping`            | ![](./docs/B/3/ping.png)                                                                                                                                       |
+| 3   | Prediksi dan hasil uji LPM (.10, .1, .70)               | `ping`            | Prediksi: Hanya ping ke .10 yang gagal karena .10 disetting null/blackhole dengan prefix 32 yang mana hanya spesifik ke 1 ip yaitu .10 ![](./docs/B/3/lpm.png) |
+| 4   | Message yang diterima pengirim saat loop                | `ping`            | ![](./docs/B/3/ttl-eceed.png)                                                                                                                                  |
+| 5   | Nilai TTL Echo Request yang sama pada capture R1–R2     | `ip.ttl`          | ![](./docs/B/3/ws3-ttl-exceed.png)                                                                                                                             |
+| 6   | Konektivitas setelah konfigurasi dikembalikan           | `ping`            | ![](./docs/B/3/normal.png)                                                                                                                                     |
 
 ## Bagian C - Redundansi dan Dynamic Routing OSPF pada Topologi Ring
 
@@ -210,6 +210,15 @@ put your answer here (and screenshot) for:
 - static route added on R1 (IF-106 langsung via R3) and on R3 (Ruang Dosen langsung via R1, distance=10)
 ```
 
+<div align="center">
+    <img src="./docs/C/1/a.png" width='500px'>
+    <br>
+    <p>Interface Address</p>
+    <img src="./docs/C/1/a-2.png" width='500px'>
+    <br>
+    <p>Routing</p>
+</div>
+
 #### Langkah Kerja - (b)
 
 **Answer:**
@@ -218,6 +227,15 @@ put your answer here (and screenshot) for:
 put your answer here (and screenshot) for:
 - mtr path Ruang Dosen -> IF-106 (compare hop count with Problem B.2)
 ```
+
+<div align="center">
+    <img src="./docs/C/1/hop.png" width='500px'>
+    <br>
+    <p>Hop baru lebih cepat 1 hop</p>
+    <img src="./docs/B/2/dos-if-106.png" width='500px'>
+    <br>
+    <p>Lebih lambat pada B.2</p>
+</div>
 
 #### Langkah Kerja - (c)
 
@@ -228,6 +246,17 @@ put your answer here (and screenshot) for:
 - mtr from netics-pc-desktop-1 to netics-pc-3 (route disabled on R3)
 - mtr from netics-pc-3 to netics-pc-desktop-1 (reverse direction)
 ```
+
+Prediksi: Karena rute R1-R3 mati, yang diambil adalah R2-R3 melewati R2 e3 dan R3 e2 <br>
+
+<div align="center">
+    <img src="./docs/C/1/c.png" width='500px'>
+    <br>
+    <p>Laterano ke Kazdel</p>
+    <img src="./docs/C/1/c-2.png" width='500px'>
+    <br>
+    <p>Kazdel ke Laterano</p>
+</div>
 
 #### Langkah Kerja - (d)
 
@@ -240,6 +269,20 @@ put your answer here (and screenshot) for:
 - /ip route print where dst-address=[...].0/26 (on R1)
 ```
 
+Prediksi: Seharusnya berpindah rute ke rute alternatif R1-R2 -> R2-R3
+
+<div align="center">
+    <img src="./docs/C/1/d-4.png" width='500px'>
+    <br>
+    <p>Ping</p>
+    <img src="./docs/C/1/d-5.png" width='500px'>
+    <br>
+    <p>R1 e3</p>
+    <img src="./docs/C/1/d-6.png" width='500px'>
+    <br>
+    <p>Inactive static route</p>
+</div>
+
 #### Langkah Kerja - (e)
 
 **Answer:**
@@ -249,6 +292,14 @@ put your answer here (and screenshot) for:
 - check-gateway=ping configuration on R1 and R3
 - recorded downtime duration before traffic switches to R2
 ```
+
+<div align="center">
+    <img src="./docs/C/1/e.png" width='500px'>
+    <br>
+    <p>Route detail</p>
+</div>
+
+Recorded downtime adalah 1.5ms
 
 ### Problem C.2 - OSPF pada Topologi Ring
 
@@ -266,6 +317,12 @@ put your answer here (and screenshot) for:
 - /ip route print (routing table containing only connected routes)
 ```
 
+<div align="center">
+    <img src="./docs/C/2/a1.png" width='500px'>
+    <br>
+    <p>Route detail</p>
+</div>
+
 #### Langkah Kerja - (b)
 
 **Answer:**
@@ -274,6 +331,8 @@ put your answer here (and screenshot) for:
 put your answer here (and screenshot) for:
 - /routing ospf instance, area, and interface-template configuration on R1, R2, R3
 ```
+
+![](./docs/C/2/b.png)
 
 #### Langkah Kerja - (c)
 
@@ -286,6 +345,10 @@ put your answer here (and screenshot) for:
 - /ip route print where ospf
 ```
 
+![](./docs/C/2/c1.png)
+![](./docs/C/2/c2.png)
+![](./docs/C/2/c3.png)
+
 #### Langkah Kerja - (d)
 
 **Answer:**
@@ -296,6 +359,11 @@ put your answer here (and screenshot) for:
 - R1 routing table and neighbor list while link is suspended
 - observation after Resume (direct path returning)
 ```
+
+![](./docs/C/2/d1.png)
+Terhitung hanya 0.25ms
+![](./docs/C/2/d2.png)
+Route tidak aktif saat suspend
 
 ## Bagian D - Backbone Ganda dan Skalabilitas Dynamic Routing
 
