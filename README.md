@@ -78,17 +78,23 @@
 > Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
 
 **Answer - Routing Table (rencana):**
+> Metode dapat diisi seperti "Terhubung Langsung" atau "Static".
+
 | Router | Destination Network | Next Hop | Outgoing Interface | Metode |
 | ------ | ------------------- | -------- | ------------------ | ------ |
-| R1 | IF-106 10.127.20.128/26 | - | ether1 (10.127.20.129) | Terhubung Langsung |
-| R1 | IF-105 10.127.20.64/26 | 10.127.20.162 (R2 ether2) | ether2 (10.127.20.161) | Static |
-| R1 | Ruang Dosen 10.127.20.0/28 | 10.127.20.162 (R2 ether2) | ether2 (10.127.20.161) | Static |
-| R2 | IF-105 10.127.20.64/26 | - | ether1 (10.127.20.65) | Terhubung Langsung |
-| R2 | Ruang Dosen 10.127.20.0/28 | 10.127.20.166 (R3 ether2) | ether3 (10.127.20.165) | Static |
-| R2 | IF-106 10.127.20.128/26 | 10.127.20.166 (R3 ether2) | ether3 (10.127.20.165) | Static |
-| R3 | Ruang Dosen 10.127.20.0/28 | - | ether1 (10.127.20.1) | Terhubung Langsung |
-| R3 | IF-105 10.127.20.64/26 | 10.127.20.165 (R2 ether3) | ether2 (10.127.20.166) | Static |
-| R3 | IF-106 10.127.20.128/26 | 10.127.20.165 (R2 ether3) | ether2 (10.127.20.166) | Static |
+| R1 | Ruang Dosen | | | |
+| R1 | Link R1–R2 | | | |
+| R1 | IF-105 | | | |
+| R1 | IF-106 | | | |
+| R2 | IF-105 | | | |
+| R2 | Link R1–R2 | | | |
+| R2 | Link R2–R3 | | | |
+| R2 | Ruang Dosen | | | |
+| R2 | IF-106 | | | |
+| R3 | IF-106 | | | |
+| R3 | Link R2–R3 | | | |
+| R3 | Ruang Dosen | | | |
+| R3 | IF-105 | | | |
 
 > [!NOTE]
 > Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
@@ -158,13 +164,14 @@
 
 | No  | Parameter/Aspek                                  | Field/Perintah             | Hasil Observasi (screenshot)                                                                                                                                                              |
 | --- | ------------------------------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1   | Hasil ping dan traceroute dari R3                | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/belum.png) Sesudah: ![1.ping-1](./docs/B/2/sudah.png) |
-| 2   | Routing table R1, R2, R3 lengkap                 | `/ip route print`          | ![](./docs/B/2/route.png)                                                                                                                                                                 |
-| 3   | Path Ruang Dosen → IF-105                        | `mtr`                      | ![](./docs/B/2/dos-if-105.png)                                                                                                                                                            |
-| 4   | Path Ruang Dosen → IF-106                        | `mtr`                      | ![](./docs/B/2/dos-if-106.png)                                                                                                                                                            |
-| 5   | Path IF-106 → Ruang Dosen                        | `mtr`                      | ![](./docs/B/2/if-106-to-dos.png)                                                                                                                                                         |
-| 6   | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl`                   | ![](./docs/B/2/ttl.png)                                                                                                                                                                   |
-| 7   | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum`  | Protocol: ![](./docs/B/2/proto.png) Checksum: ![](./docs/B/2/checksum.png)                                                                                                                |
+| 1 | Prediksi ping ke Kazdel sebelum R3 dikonfigurasi | - | |
+| 2 | Hasil ping dan traceroute dari R3 | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/belum.png) Sesudah: ![1.ping-1](./docs/B/2/sudah.png) |
+| 3 | Routing table R1, R2, R3 lengkap | `/ip route print` | ![](./docs/B/2/route.png) |
+| 4 | Path Ruang Dosen → IF-105 | `mtr` | ![](./docs/B/2/dos-if-105.png) |
+| 5 | Path Ruang Dosen → IF-106 | `mtr` | ![](./docs/B/2/dos-if-106.png) |
+| 6 | Path IF-106 → Ruang Dosen | `mtr` | ![](./docs/B/2/if-106-to-dos.png) |
+| 7 | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl` | ![](./docs/B/2/ttl.png) |
+| 8 | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum` | Protocol: ![](./docs/B/2/proto.png) Checksum: ![](./docs/B/2/checksum.png) |
 
 ### Problem B.3 - Manipulasi Route: Summarization, Longest Prefix Match, dan Routing Loop
 
@@ -246,8 +253,8 @@ put your answer here (and screenshot) for:
 
 ```
 put your answer here (and screenshot) for:
-- mtr from netics-pc-desktop-1 to netics-pc-3 (route disabled on R3)
-- mtr from netics-pc-3 to netics-pc-desktop-1 (reverse direction)
+- mtr from Laterano to Kazdel (route disabled on R3)
+- mtr from Kazdel to Laterano (reverse direction)
 ```
 
 Prediksi: Karena rute R1-R3 mati, yang diambil adalah R2-R3 melewati R2 e3 dan R3 e2 <br>
@@ -483,10 +490,10 @@ put your calculation here: number of additional static routes needed and on whic
 
 ```
 put your answer here (and screenshot) for:
-- topology after adding R4, switch, and netics-pc-4
+- topology after adding R4, switch, and Higashi
 - R4 IP address configuration (ether1, ether4, ether5)
 - R4 OSPF instance/area/interface-template configuration
-- netics-pc-4 address and default gateway configuration
+- Higashi address and default gateway configuration
 ```
 
 ![](./docs/topo.png)
@@ -505,7 +512,7 @@ Default gateway adalah multi router, karena distance sama, keduanya digunakan.
 ```
 put your answer here (and screenshot) for:
 - /ip route print where dst-address=[IP Prefix].192/26 (on R1, without touching R1 config)
-- mtr from Ruang Dosen (netics-pc-desktop-1) to netics-pc-4
+- mtr from Ruang Dosen (Laterano) to Higashi
 ```
 
 ![](./docs/D/2/c.png)
