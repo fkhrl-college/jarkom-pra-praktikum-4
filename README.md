@@ -78,23 +78,24 @@
 > Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
 
 **Answer - Routing Table (rencana):**
+
 > Metode dapat diisi seperti "Terhubung Langsung" atau "Static".
 
 | Router | Destination Network | Next Hop | Outgoing Interface | Metode |
 | ------ | ------------------- | -------- | ------------------ | ------ |
-| R1 | Ruang Dosen | | | |
-| R1 | Link R1–R2 | | | |
-| R1 | IF-105 | | | |
-| R1 | IF-106 | | | |
-| R2 | IF-105 | | | |
-| R2 | Link R1–R2 | | | |
-| R2 | Link R2–R3 | | | |
-| R2 | Ruang Dosen | | | |
-| R2 | IF-106 | | | |
-| R3 | IF-106 | | | |
-| R3 | Link R2–R3 | | | |
-| R3 | Ruang Dosen | | | |
-| R3 | IF-105 | | | |
+| R1     | Ruang Dosen         |          |                    |        |
+| R1     | Link R1–R2          |          |                    |        |
+| R1     | IF-105              |          |                    |        |
+| R1     | IF-106              |          |                    |        |
+| R2     | IF-105              |          |                    |        |
+| R2     | Link R1–R2          |          |                    |        |
+| R2     | Link R2–R3          |          |                    |        |
+| R2     | Ruang Dosen         |          |                    |        |
+| R2     | IF-106              |          |                    |        |
+| R3     | IF-106              |          |                    |        |
+| R3     | Link R2–R3          |          |                    |        |
+| R3     | Ruang Dosen         |          |                    |        |
+| R3     | IF-105              |          |                    |        |
 
 > [!NOTE]
 > Alokasi bersifat final, soal tidak dapat dikerjakan jika tidak menggunakan konfigurasi ini. Menggunakan konfigurasi A1 tidak dapat dikerjakan, soal tidak meminta sesuai A1
@@ -164,14 +165,13 @@
 
 | No  | Parameter/Aspek                                  | Field/Perintah             | Hasil Observasi (screenshot)                                                                                                                                                              |
 | --- | ------------------------------------------------ | -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 1 | Prediksi ping ke Kazdel sebelum R3 dikonfigurasi | - | |
-| 2 | Hasil ping dan traceroute dari R3 | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/belum.png) Sesudah: ![1.ping-1](./docs/B/2/sudah.png) |
-| 3 | Routing table R1, R2, R3 lengkap | `/ip route print` | ![](./docs/B/2/route.png) |
-| 4 | Path Ruang Dosen → IF-105 | `mtr` | ![](./docs/B/2/dos-if-105.png) |
-| 5 | Path Ruang Dosen → IF-106 | `mtr` | ![](./docs/B/2/dos-if-106.png) |
-| 6 | Path IF-106 → Ruang Dosen | `mtr` | ![](./docs/B/2/if-106-to-dos.png) |
-| 7 | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl` | ![](./docs/B/2/ttl.png) |
-| 8 | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum` | Protocol: ![](./docs/B/2/proto.png) Checksum: ![](./docs/B/2/checksum.png) |
+| 1   | Hasil ping dan traceroute dari R3                | `ping`, `/tool traceroute` | Prediksi ping Laterano ke Kazdel: Gagal, segala koneksi ke R3 belum bisa karena belum ada routing di R3 <br> ![1.ping-1](./docs/B/2/belum.png) Sesudah: ![1.ping-1](./docs/B/2/sudah.png) |
+| 2   | Routing table R1, R2, R3 lengkap                 | `/ip route print`          | ![](./docs/B/2/route.png)                                                                                                                                                                 |
+| 3   | Path Ruang Dosen → IF-105                        | `mtr`                      | ![](./docs/B/2/dos-if-105.png)                                                                                                                                                            |
+| 4   | Path Ruang Dosen → IF-106                        | `mtr`                      | ![](./docs/B/2/dos-if-106.png)                                                                                                                                                            |
+| 5   | Path IF-106 → Ruang Dosen                        | `mtr`                      | ![](./docs/B/2/if-106-to-dos.png)                                                                                                                                                         |
+| 6   | TTL pada LAN Ruang Dosen, link R1–R2, link R2–R3 | `ip.ttl`                   | ![](./docs/B/2/ttl.png)                                                                                                                                                                   |
+| 7   | Protocol dan Header Checksum pada ketiga capture | `ip.proto`, `ip.checksum`  | Protocol: ![](./docs/B/2/proto.png) Checksum: ![](./docs/B/2/check.r.dos.png) ![](./docs/B/2/check.r1.r2.png) ![](./docs/B/2/check.r2.r3.png)                                             |
 
 ### Problem B.3 - Manipulasi Route: Summarization, Longest Prefix Match, dan Routing Loop
 
