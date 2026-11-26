@@ -12,7 +12,7 @@
 #### Put your GNS3 Project files here (gdrive or github upload)!
 
 `Put file URL here`
-![](./topo.gns3project)
+[topo](./topo.gns3project)
 
 ---
 
